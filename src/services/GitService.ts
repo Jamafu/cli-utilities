@@ -56,7 +56,10 @@ export class GitService {
       'Select branch (start typing or use arrow keys):',
       branchNames,
     );
-    const checkoutCliOutputResult = await this.processExecutor.execute(`git checkout ${userInput}`);
+
+    const selectBranchOneLiner =
+      "git checkout $(git branch -a -vv --sort=-committerdate | fzf --header 'git checkout' | awk '{print $1}' | sed 's#remotes/origin/##' | xargs)";
+    const checkoutCliOutputResult = await this.processExecutor.execute(selectBranchOneLiner);
     if (checkoutCliOutputResult.isErr()) {
       return err(`Failed to checkout branch: ${userInput}`);
     }
