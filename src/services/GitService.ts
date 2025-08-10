@@ -148,7 +148,7 @@ export class GitService {
       return err(undefined);
     }
 
-    const gitStatusIndicators = ['changes not staged for commit', ' deleted:'];
+    const gitStatusIndicators = ['changes not staged for commit', 'changes to be committed'];
     const hasUnstagedChanges = gitStatusIndicators.some(indicator =>
       gitStatusResult.value.toLowerCase().includes(indicator),
     );
