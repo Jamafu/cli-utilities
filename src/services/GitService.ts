@@ -47,6 +47,10 @@ export class GitService {
     if (branchNames.length === 0) {
       return ok('No branches found.');
     }
+    if (branchNames.length === 1) {
+      const singleBranch = branchNames[0];
+      return ok(`Only one branch exists: ${singleBranch}. No need to select.`);
+    }
 
     const userInput = await this.promptService.autoComplete(
       'Select branch (start typing or use arrow keys):',
