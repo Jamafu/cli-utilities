@@ -4,16 +4,16 @@ set -euo pipefail
 log() { printf "\033[1;34m›\033[0m %s\n" "$*"; }
 
 # Resolve script dir and project root
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-PROJECT_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null || true)"
-PROJECT_ROOT="${PROJECT_ROOT:-$SCRIPT_DIR}"
+GIT_NODE_SCRIPT="$(dirname "$HOME/.zsh/scripts/git/scripts")"
+EXECUTION_DIR="$(pwd)"
+
 
 navigate_to_project() {
-  if [[ "$(pwd)" == "$PROJECT_ROOT" ]]; then
+  if [[ "$(pwd)" == "$GIT_NODE_SCRIPT" ]]; then
     return 0
   fi
-  log "cd $PROJECT_ROOT"
-  cd "$PROJECT_ROOT"
+  log "cd $GIT_NODE_SCRIPT"
+  cd "$GIT_NODE_SCRIPT"
 }
 
 install_dependencies() {
@@ -41,11 +41,8 @@ main() {
   install_dependencies
   build_project
 
-  local entry="_dist/executables/git-checkout/index.js"
-  [[ -f "$entry" ]] || { echo "❌ Entry not found: $entry" >&2; exit 1; }
-
-  log "Running app: node $entry"
-  node "$entry"
+  cd "$EXECUTION_DIR"
+  node "$GIT_NODE_SCRIPT/_dist/executables/git-checkout/index.js"
 }
 
 main "$@"
