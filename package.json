@@ -6,9 +6,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "tsc",
-    "clean-build": "rimraf _dist && tsc",
-    "clean-install": "rimraf node_modules && npm install",
-    "clean": "rimraf _dist && npm run build",
+    "clean-build": "rm -rf _dist && tsc",
+    "clean-install": "rm -rf node_modules && npm install",
+    "clean": "rm -rf _dist && npm run build",
     "format": "npx biome format --write src"
   },
   "dependencies": {
