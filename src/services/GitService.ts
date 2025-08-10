@@ -45,6 +45,7 @@ export class GitService {
 
     const branchNames = branchNamesResult.value;
     if (branchNames.length === 0) {
+      await this.processExecutor.execute('git stash pop');
       return ok('No branches found.');
     }
     if (branchNames.length === 1) {
@@ -52,16 +53,11 @@ export class GitService {
       return ok(`Only one branch exists: ${singleBranch}. No need to select.`);
     }
 
-    const userInput = await this.promptService.autoComplete(
-      'Select branch (start typing or use arrow keys):',
-      branchNames,
-    );
-
     const selectBranchOneLiner =
       "git checkout $(git branch -a -vv --sort=-committerdate | fzf --header 'git checkout' | awk '{print $1}' | sed 's#remotes/origin/##' | xargs)";
     const checkoutCliOutputResult = await this.processExecutor.execute(selectBranchOneLiner);
     if (checkoutCliOutputResult.isErr()) {
-      return err(`Failed to checkout branch: ${userInput}`);
+      return err(`Failed to checkout branch.`);
     }
     const checkoutCliOutput = checkoutCliOutputResult.value;
     console.log(checkoutCliOutput);
@@ -95,7 +91,7 @@ export class GitService {
       return err(undefined);
     }
 
-    const result = await this.processExecutor.execute('git branch -r');
+    const result = await this.processExecutor.execute('git branch');
     if (result.isErr()) {
       console.warn('Failed to retrieve remote branches.');
       return err(undefined);
@@ -104,7 +100,6 @@ export class GitService {
     const branchNames = result.value
       .split('\n')
       .map(line => line.trim())
-      .filter(line => line?.startsWith('origin/'))
       .map(branch => branch.replace(/^origin\//, ''))
       .filter(line => line && !line.toLowerCase().includes('head'));
 
