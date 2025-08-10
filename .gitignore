@@ -1,0 +1,43 @@
+# Editors / IDEs
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+.history/
+
+# Static files
+docs/static/*
+
+# Packages
+**/.npmrc
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# testing
+/coverage
+test-report.json
+junit.xml
+
+# contract tests
+tests/contract/pacts/*.log
+tests/contract/pacts/*.json
+!tests/contract/pacts/recipes-service*.json
+!tests/contract/pacts/recipesservice*.json
+
+# Build
+_dist/
+package.tar.gz
+
+# Dotenv
+.env*
+!.env.sample
+
+# OS
+.DS_Store
+desktop.ini
+Thumbs.db

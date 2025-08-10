@@ -1,0 +1,116 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!**/fixtures/**/*", "!**/coverage", "!**/_dist", "!**/*.d.ts"]
+  },
+  "formatter": {
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120
+  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "performance": {
+        "recommended": true
+      },
+      "complexity": {
+        "recommended": true,
+        "noUselessUndefinedInitialization": "error",
+        "noVoid": "error",
+        "useLiteralKeys": "error"
+      },
+      "correctness": {
+        "recommended": true,
+        "noUnusedImports": "error",
+        "noUnusedPrivateClassMembers": "error",
+        "noUnusedVariables": {
+          "level": "error",
+          "options": {
+            "ignoreRestSiblings": true
+          }
+        }
+      },
+      "security": {
+        "recommended": true
+      },
+      "style": {
+        "recommended": false,
+        "noDefaultExport": "error",
+        "noImplicitBoolean": "error",
+        "noShoutyConstants": "error",
+        "noYodaExpression": "error",
+        "useThrowNewError": "error",
+        "useCollapsedElseIf": "error",
+        "useDefaultSwitchClause": "error",
+        "noDoneCallback": "error",
+        "noNamespace": "error",
+        "useBlockStatements": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        },
+        "useConsistentBuiltinInstantiation": "error",
+        "useForOf": "error"
+      },
+      "suspicious": {
+        "recommended": true,
+        "noEmptyBlockStatements": "error"
+      }
+    },
+    "includes": ["**", "!**/__mocks__/", "!**/jest.setup.ts"]
+  },
+  "json": {
+    "formatter": {
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineEnding": "lf",
+      "lineWidth": 120
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "arrowParentheses": "asNeeded",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.spec.ts", "**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/*.test.*",
+        "**/*_test.*",
+        "**/*Test.*",
+        "**/*.spec.*",
+        "**/*_spec.*",
+        "**/*Spec.*",
+        "**/__tests__/**/*"
+      ],
+      "linter": { "rules": {} }
+    }
+  ]
+}
